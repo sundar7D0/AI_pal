@@ -32,13 +32,6 @@ creds_str = tab1.text_input(
     "Enter contents of your 'credentials.json'", placeholder='{"installed": {"client_id": "...'
 )
 
-with open("credentials.json", "w") as creds:
-    creds.write(creds_str)
-    
-
-
-
-
 def get_credentials():
     """Gets valid user credentials from storage.
 
@@ -117,6 +110,8 @@ def maine():
 connect = st.button("Connect")
 
 if connect:
+    with open("credentials.json", "w") as creds:
+        creds.write(creds_str)
     maine()
 # Streamlit widgets automatically run the script from top to bottom. Since
 # this button is not connected to any other logic, it just causes a plain
