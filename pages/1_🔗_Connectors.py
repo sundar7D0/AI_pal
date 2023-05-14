@@ -105,7 +105,6 @@ def read_structural_elements(elements):
             text += read_structural_elements(toc.get("content"))
     return text
 
-progress_bar.empty()
 
 def maine():
     """Uses the Docs API to print out the text of a document."""
