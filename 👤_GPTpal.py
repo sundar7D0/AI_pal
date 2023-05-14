@@ -91,7 +91,8 @@ def main():
               HumanMessage(content=question)
             ]
             response = chat(messages)
-            st.write(response)
+            for resp in response:
+                st.write(resp)
 
         # Optionally show the chain of thought, if user expands the subsection
         #with st.expander('See chain of thought'):
