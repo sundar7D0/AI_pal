@@ -32,6 +32,10 @@ openai_token = st.sidebar.text_input(
     'Enter your OpenAI API key:', placeholder='sk-...', type='password'
 )
 
+genre = st.sidebar.radio(
+    "Retriever pluginWhat\'s your favorite movie genre",
+    ('Yes', 'No'))
+
 # Type your question
 question = st.text_input(
     'Type your question:', placeholder="How to increase my company's revenue?"
@@ -99,10 +103,16 @@ def main():
             docs = docsearch.similarity_search(question)
             st.write("Retrieved docs: ")
             st.write(docs)
-            messages = [
-              SystemMessage(content="You are a helpful assistant that has access to many tools! Use only the below context to answer and say that you don't know if the context doesn't help.\n Context: "+' '.join(map(str, docs))),
-              HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
-            ]
+            if genre == 'Yes':
+                messages = [
+                  SystemMessage(content="You are a helpful assistant that has access to many tools! Use only the below context to answer and say that you don't know if the context doesn't help.\n Context: "+' '.join(map(str, docs))),
+                  HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
+                ]
+            else:
+                messages = [
+                  SystemMessage(content="You are a helpful assistant that has access to many tools!"),
+                  HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
+                ]
             response = chat(messages)
             
         
