@@ -1,6 +1,7 @@
 #base modules
 streamlit
 langchain
+openai
 
 #vector-store
 pinecone-client
