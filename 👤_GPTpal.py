@@ -91,10 +91,10 @@ def main():
               HumanMessage(content=question)
             ]
             response = chat(messages)
-            for event in response: 
-                event_text = event['choices'][0]['delta'] # EVENT DELTA RESPONSE
-                answer = event_text.get('content', '') # RETRIEVE CONTENT
-                print(answer, end='', flush=True) # Print the response    
+            res_box = st.empty()
+            for resp in chat(messages):
+                res_box.markdown(f'{resp}')
+  
                 #for resp in response:
             #    st.write(resp)
 
