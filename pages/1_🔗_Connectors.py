@@ -119,13 +119,22 @@ def maine():
     )
     embed_model = "text-embedding-ada-002"
 
-
+    from langchain.embeddings.openai import OpenAIEmbeddings
+    embeddings = OpenAIEmbeddings()
     # connect to index
     from langchain.text_splitter import CharacterTextSplitter
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
     from langchain.vectorstores import Pinecone
     index_name = "langchain-demo"
-    text_splitter = CharacterTextSplitter(chunk_size=10, chunk_overlap=0)
-    docs = text_splitter.split_documents(text_contents)
+    #text_splitter = CharacterTextSplitter(chunk_size=10, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter(
+        # Set a really small chunk size, just to show.
+        chunk_size = 100,
+        chunk_overlap  = 20,
+        length_function = len,
+    )
+    texts = text_splitter.create_documents([text_contents])
+    docs = text_splitter.split_documents(texts)
     docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
 
 upsert = st.button("Upsert")
