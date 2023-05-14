@@ -1,2 +1,2 @@
 # GPTpal
-Connect your data (from gdrive) with langchain through a streamline app!
+Interface to connect data sources to langchain in a streamlit app!
