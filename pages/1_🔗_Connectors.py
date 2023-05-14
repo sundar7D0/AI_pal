@@ -114,7 +114,7 @@ def maine():
     import pinecone
     # initialize connection to pinecone (get API key at app.pinecone.io)
     pinecone.init(
-        api_key="f7167eee-6383-4eec-857e-91c402f13f3b",
+        api_key="1a7ccf41-091a-4567-862a-02b2513a77cb", #"f7167eee-6383-4eec-857e-91c402f13f3b",
         environment="us-east1-gcp"
     )
     embed_model = "text-embedding-ada-002"
