@@ -1,2 +1,2 @@
 # GPTpal
-Connect gdrive with langchain, pinecone through a streamline app for assistance!
+Connect your data (from gdrive) with langchain through a streamline app for assistance!
