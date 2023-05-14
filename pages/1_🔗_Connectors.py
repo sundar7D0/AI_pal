@@ -53,8 +53,8 @@ def get_credentials():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-            creds = flow.run_local_server(port=9988)
+            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES, redirect_uri="https://sundar7d0-gptpal--gptpal-kq1rdk.streamlit.app")
+            creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open("token.json", "w") as token:
             token.write(creds.to_json())
@@ -102,15 +102,33 @@ def read_structural_elements(elements):
 
 def maine():
     """Uses the Docs API to print out the text of a document."""
-    st.write("calling get_credentials")
     credentials = get_credentials()
-    st.write("calling docs_service")
     docs_service = build(serviceName="docs", version="v1", credentials=credentials)
     doc = docs_service.documents().get(documentId=DOCUMENT_ID).execute()
     doc_content = doc.get("body").get("content")
-    st.write(read_structural_elements(doc_content))
+    st.write("File contents: ")
+    text_contents = read_structural_elements(doc_content)
+    st.write(text_contents)
+    st.write("\n Upserting the contents to pinecone...")
+    import openai
+    import pinecone
+    # initialize connection to pinecone (get API key at app.pinecone.io)
+    pinecone.init(
+        api_key="f7167eee-6383-4eec-857e-91c402f13f3b",
+        environment="us-east1-gcp"
+    )
+    embed_model = "text-embedding-ada-002"
 
-upsert = st.button("Upsert")
+
+    # connect to index
+    from langchain.text_splitter import CharacterTextSplitter
+    from langchain.vectorstores import Pinecone
+    index_name = "langchain-demo"
+    
+    docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+
+
+    #upsert = st.button("Upsert")
 
 if upsert:
     with open("token.json", "w") as creds:
