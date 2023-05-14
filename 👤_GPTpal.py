@@ -104,12 +104,14 @@ def main():
         #    st.write(chain_of_thought, unsafe_allow_html=True)
         
 class MyCustomHandler(BaseCallbackHandler):
-    response = []
+    def __init__(self) -> None:
+            self.response = []
+            super().__init__()
     
     def on_llm_new_token(self, token: str, **kwargs) -> None:
-        response.append(token)
-        result = "".join(response).strip()
-        result = result.replace("\n", "")        
+        self.response.append(token)
+        result = "".join(self.response).strip()
+        result = result.replace("\n", "")       
         res_box.markdown(f'*{result}*') 
         #st.write(f"Custom handler, token: {token}")
 
