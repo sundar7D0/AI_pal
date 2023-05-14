@@ -61,11 +61,8 @@ for tool in selected_tools:
 submit = st.button('Submit')
 
 
-#placeholder = st.empty()
+placeholder = st.empty()
 
-placeholder = st.text_area()
-# Replace the placeholder with some text:
-placeholder.text("Hello")
 
 def main():
     if submit:
@@ -108,7 +105,7 @@ class MyCustomHandler(BaseCallbackHandler):
     def on_llm_new_token(self, token: str, **kwargs) -> None:
         self.response.append(token)
         result = "".join(self.response).strip()   
-        placeholder.text(result)
+        placeholder.markdown(f'{result}')
         #st.text_area(label ="",value=result, height =100)
         ##res_box.markdown(f'{result}') 
         #st.write(f"Custom handler, token: {token}")
