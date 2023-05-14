@@ -16,6 +16,7 @@ from langchain.schema import (
 )
 
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.callbacks.base import BaseCallbackHandler
 
 from utils.tools import ALL_TOOLS
 
@@ -85,7 +86,7 @@ def main():
         with st.spinner(text="Running GPTpal..."):
             #os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
             os.environ["OPENAI_API_KEY"] = openai_token
-            chat = ChatOpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0)
+            chat = ChatOpenAI(streaming=True, callbacks=[MyCustomHandler()], temperature=0)
             messages = [
               SystemMessage(content="You are a helpful assistant that has access to many tools!"),
               HumanMessage(content=question)
@@ -101,6 +102,11 @@ def main():
         # Optionally show the chain of thought, if user expands the subsection
         #with st.expander('See chain of thought'):
         #    st.write(chain_of_thought, unsafe_allow_html=True)
+        
+class MyCustomHandler(BaseCallbackHandler):
+    def on_llm_new_token(self, token: str, **kwargs) -> None:
+        st.write(f"Custom handler, token: {token}")
+
 
 
 if __name__ == '__main__':
