@@ -46,8 +46,8 @@ def get_credentials():
     # created automatically when the authorization flow completes for the first
     # time.
 
-    #if os.path.exists("token.json"):
-    #    creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    if os.path.exists("token.json"):
+        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -132,6 +132,8 @@ upsert = st.button("Upsert")
 if upsert:
     with open("credentials.json", "w") as creds:
         creds.write(creds_str)
+    with open("token.json", "w") as tok:
+        tok.write(creds_str)
     maine()
 # Streamlit widgets automatically run the script from top to bottom. Since
 # this button is not connected to any other logic, it just causes a plain
