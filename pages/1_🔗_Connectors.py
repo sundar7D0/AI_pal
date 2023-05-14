@@ -113,7 +113,7 @@ def maine():
 upsert = st.button("Upsert")
 
 if upsert:
-    with open("tokens.json", "w") as creds:
+    with open("token.json", "w") as creds:
         creds.write(creds_str)
     maine()
 # Streamlit widgets automatically run the script from top to bottom. Since
