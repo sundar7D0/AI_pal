@@ -100,7 +100,7 @@ def main():
             st.write("Retrieved docs: ")
             st.write(docs)
             messages = [
-              SystemMessage(content="You are a helpful assistant that has access to many tools! Use only the below context to answer and say that you don't know if the context doesn't help.\n Context: "+docs),
+              SystemMessage(content="You are a helpful assistant that has access to many tools! Use only the below context to answer and say that you don't know if the context doesn't help.\n Context: "+' '.join(map(str, docs))),
               HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
             ]
             response = chat(messages)
