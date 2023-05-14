@@ -1,3 +1,5 @@
+streamlit
+
 langchain = "0.0.168"
 python = ">=3.8.1,<4.0"
 pydantic = "^1"
