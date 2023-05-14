@@ -59,7 +59,7 @@ def get_credentials():
             st.write("hi5")
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
             st.write("hi6")
-            creds = flow.run_local_server(port=8503)
+            creds = flow.run_local_server(port=80)
             st.write("hi7")
         # Save the credentials for the next run
         st.write("hi8")
