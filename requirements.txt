@@ -4,6 +4,7 @@ openai
 pinecone-client
 tiktoken
 bs4
+wolframalpha
 gspread
 google-api-python-client
 google-auth-httplib2
