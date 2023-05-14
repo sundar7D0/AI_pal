@@ -90,12 +90,12 @@ def main():
               SystemMessage(content="You are a helpful assistant that has access to many tools!"),
               HumanMessage(content=question)
             ]
-            answer = chat(messages)
+            response = chat(messages)
             for event in response: 
-                print(answer, end='', flush=True) # Print the response    
                 event_text = event['choices'][0]['delta'] # EVENT DELTA RESPONSE
                 answer = event_text.get('content', '') # RETRIEVE CONTENT
-            #for resp in response:
+                print(answer, end='', flush=True) # Print the response    
+                #for resp in response:
             #    st.write(resp)
 
         # Optionally show the chain of thought, if user expands the subsection
