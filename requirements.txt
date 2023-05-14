@@ -1,5 +1,11 @@
+#base modules
 streamlit
 langchain
+
+#vector-store
+pinecone-client
+
+#plugins
+wikipedia
 google-auth-oauthlib
 google-api-python-client
-pinecone-client
