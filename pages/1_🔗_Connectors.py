@@ -45,18 +45,27 @@ def get_credentials():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+    st.write("hi1")
     if os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
     # If there are no (valid) credentials available, let the user log in.
+    st.write("hi2")
     if not creds or not creds.valid:
+        st.write("hi3")
         if creds and creds.expired and creds.refresh_token:
+            st.write("hi4")
             creds.refresh(Request())
         else:
+            st.write("hi5")
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            st.write("hi6")
             creds = flow.run_local_server(port=0)
+            st.write("hi7")
         # Save the credentials for the next run
+        st.write("hi8")
         with open("token.json", "w") as token:
             token.write(creds.to_json())
+        st.write("hi9")
     return creds
 
 def read_paragraph_element(element):
@@ -101,7 +110,9 @@ def read_structural_elements(elements):
 
 def maine():
     """Uses the Docs API to print out the text of a document."""
+    st.write("calling get_credentials")
     credentials = get_credentials()
+    st.write("calling docs_service")
     docs_service = build(serviceName="docs", version="v1", credentials=credentials)
     doc = docs_service.documents().get(documentId=DOCUMENT_ID).execute()
     doc_content = doc.get("body").get("content")
