@@ -92,7 +92,7 @@ def main():
             chat = ChatOpenAI(streaming=True, callbacks=[MyCustomHandler()], temperature=0)
             messages = [
               SystemMessage(content="You are a helpful assistant that has access to many tools!"),
-              HumanMessage(content="Who won the US open 2020 tennis?")
+              HumanMessage(content="Who won the US open 2020 tennis? Tell their nationalities and spouses")
             ]
             response = chat(messages)
             
