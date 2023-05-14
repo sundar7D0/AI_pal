@@ -141,6 +141,7 @@ def maine():
     texts = text_splitter.create_documents([text_contents])
     docs = text_splitter.split_documents(texts)
     docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+    st.write("Done upserting!")
 
 upsert = st.button("Upsert")
 
