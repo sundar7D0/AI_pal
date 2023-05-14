@@ -99,7 +99,7 @@ def main():
             index_name = "langchain-demo"
             embeddings = OpenAIEmbeddings()
             docsearch = Pinecone.from_existing_index(index_name, embeddings)
-            docs = docsearch.similarity_search(query)
+            docs = docsearch.similarity_search(question)
             st.write("Retrieved docs: ")
             st.write(docs)
             response = chat(messages)
