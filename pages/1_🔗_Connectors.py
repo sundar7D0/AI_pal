@@ -127,8 +127,7 @@ def maine():
     
     docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
 
-
-    #upsert = st.button("Upsert")
+upsert = st.button("Upsert")
 
 if upsert:
     with open("token.json", "w") as creds:
