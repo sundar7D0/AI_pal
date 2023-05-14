@@ -94,6 +94,14 @@ def main():
               SystemMessage(content="You are a helpful assistant that has access to many tools!"),
               HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
             ]
+            from langchain.vectorstores import Pinecone
+            from langchain.embeddings.openai import OpenAIEmbeddings
+            index_name = "langchain_demo"
+            embeddings = OpenAIEmbeddings()
+            docsearch = Pinecone.from_existing_index(index_name, embeddings)
+            docs = docsearch.similarity_search(query)
+            st.write("Retrieved docs: ")
+            st.write(docs)
             response = chat(messages)
             
         
