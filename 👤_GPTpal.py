@@ -2,7 +2,7 @@ import os
 import sys
 
 import streamlit as st
-
+res_box = st.empty()
 # get file dir and add it to sys.path
 cwd = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(cwd)
@@ -92,7 +92,7 @@ def main():
               HumanMessage(content=question)
             ]
             response = chat(messages)
-            res_box = st.empty()
+            
             for resp in chat(messages):
                 res_box.markdown(f'{resp}')
   
@@ -104,8 +104,14 @@ def main():
         #    st.write(chain_of_thought, unsafe_allow_html=True)
         
 class MyCustomHandler(BaseCallbackHandler):
+    response = []
+    
     def on_llm_new_token(self, token: str, **kwargs) -> None:
-        st.write(f"Custom handler, token: {token}")
+        response.append(token)
+        result = "".join(response).strip()
+        result = result.replace("\n", "")        
+        res_box.markdown(f'*{result}*') 
+        #st.write(f"Custom handler, token: {token}")
 
 
 
