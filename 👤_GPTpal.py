@@ -96,7 +96,7 @@ def main():
             ]
             from langchain.vectorstores import Pinecone
             from langchain.embeddings.openai import OpenAIEmbeddings
-            index_name = "langchain_demo"
+            index_name = "langchain-demo"
             embeddings = OpenAIEmbeddings()
             docsearch = Pinecone.from_existing_index(index_name, embeddings)
             docs = docsearch.similarity_search(query)
