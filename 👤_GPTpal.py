@@ -8,18 +8,14 @@ cwd = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(cwd)
 
 from langchain.chat_models import ChatOpenAI
-from langchain import PromptTemplate, LLMChain
-from langchain.prompts.chat import (
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-    AIMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-)
+
 from langchain.schema import (
     AIMessage,
     HumanMessage,
     SystemMessage
 )
+
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 from utils.tools import ALL_TOOLS
 
@@ -89,15 +85,13 @@ def main():
         with st.spinner(text="Running GPTpal..."):
             #os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
             os.environ["OPENAI_API_KEY"] = openai_token
-            chat = ChatOpenAI(temperature=0)
+            chat = ChatOpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0)
             messages = [
               SystemMessage(content="You are a helpful assistant that has access to many tools!"),
               HumanMessage(content=question)
             ]
-            result = chat(messages)
-            
-
-        st.write(result)
+            response = chat(messages)
+            st.write(response)
 
         # Optionally show the chain of thought, if user expands the subsection
         #with st.expander('See chain of thought'):
