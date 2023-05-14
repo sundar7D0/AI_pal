@@ -66,9 +66,9 @@ placeholder = st.empty()
 
 def main():
     if submit:
-        #if not openai_token:
-        #    st.error('Please enter your OpenAI token')
-        #    return
+        if not openai_token:
+            st.error('Please enter your OpenAI token')
+            return
 
         if not question:
             st.error('Please enter your question')
@@ -92,7 +92,7 @@ def main():
             chat = ChatOpenAI(streaming=True, callbacks=[MyCustomHandler()], temperature=0)
             messages = [
               SystemMessage(content="You are a helpful assistant that has access to many tools!"),
-              HumanMessage(content="Who won the US open 2020 tennis? Tell their nationalities and spouses")
+              HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
             ]
             response = chat(messages)
             
