@@ -15,6 +15,8 @@ from pydantic import BaseModel, Field
 
 _all_tools = {**_BASE_TOOLS, **_EXTRA_LLM_TOOLS, **_EXTRA_OPTIONAL_TOOLS, **_LLM_TOOLS}
 
+allowed_tools = ['wikipedia']
+
 
 def get_dummy_token():
     return 'dummy_token'
@@ -40,6 +42,8 @@ class LangchainTool(BaseModel):
 def get_all_langchain_tools() -> List[LangchainTool]:
     l_tools = []
     for k, v in _all_tools.items():
+        if k not in allowed_tools:
+            continue
         args = []
         if isinstance(v, tuple):
             func = v[0]
