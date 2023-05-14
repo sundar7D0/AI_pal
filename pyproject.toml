@@ -10,6 +10,7 @@ repository = "https://github.com/sundar7D0/GPTpal"
 
 [tool.poetry.dependencies]
 streamlit = "^1"
+altair=="4.0"
 langchain = "0.0.168"
 python = ">=3.8.1,<4.0"
 pydantic = "^1"
