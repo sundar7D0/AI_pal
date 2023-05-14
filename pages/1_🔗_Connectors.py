@@ -45,27 +45,19 @@ def get_credentials():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    st.write("hi1")
+
     if os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
     # If there are no (valid) credentials available, let the user log in.
-    st.write("hi2")
     if not creds or not creds.valid:
-        st.write("hi3")
         if creds and creds.expired and creds.refresh_token:
-            st.write("hi4")
             creds.refresh(Request())
         else:
-            st.write("hi5")
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-            st.write("hi6")
             creds = flow.run_local_server(port=9988)
-            st.write("hi7")
         # Save the credentials for the next run
-        st.write("hi8")
         with open("token.json", "w") as token:
             token.write(creds.to_json())
-        st.write("hi9")
     return creds
 
 def read_paragraph_element(element):
@@ -118,10 +110,10 @@ def maine():
     doc_content = doc.get("body").get("content")
     st.write(read_structural_elements(doc_content))
 
-connect = st.button("Connect")
+upsert = st.button("Upsert")
 
-if connect:
-    with open("credentials.json", "w") as creds:
+if upsert:
+    with open("tokens.json", "w") as creds:
         creds.write(creds_str)
     maine()
 # Streamlit widgets automatically run the script from top to bottom. Since
