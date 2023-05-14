@@ -33,8 +33,8 @@ openai_token = st.sidebar.text_input(
 )
 
 genre = st.sidebar.radio(
-    "Retriever pluginWhat\'s your favorite movie genre",
-    ('Yes', 'No'))
+    "Retriever plugin",
+    ('No', 'Yes'))
 
 # Type your question
 question = st.text_input(
