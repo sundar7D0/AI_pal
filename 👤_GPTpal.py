@@ -90,10 +90,7 @@ def main():
             os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
             #os.environ["OPENAI_API_KEY"] = openai_token
             chat = ChatOpenAI(streaming=True, callbacks=[MyCustomHandler()], temperature=0)
-            messages = [
-              SystemMessage(content="You are a helpful assistant that has access to many tools!"),
-              HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
-            ]
+            
             from langchain.vectorstores import Pinecone
             from langchain.embeddings.openai import OpenAIEmbeddings
             index_name = "langchain-demo"
@@ -102,6 +99,10 @@ def main():
             docs = docsearch.similarity_search(question)
             st.write("Retrieved docs: ")
             st.write(docs)
+            messages = [
+              SystemMessage(content="You are a helpful assistant that has access to many tools! Use only the below context to answer and say that you don't know if the context doesn't help.\n Context: "+docs),
+              HumanMessage(content=question) #("Who won the US open 2020 tennis? Tell their nationalities and spouses")
+            ]
             response = chat(messages)
             
         
