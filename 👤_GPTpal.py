@@ -30,14 +30,14 @@ st.set_page_config(
     initial_sidebar_state='auto',
 )
 
-st.sidebar.markdown('## OpenAI Token')
+st.sidebar.markdown('')
 openai_token = st.sidebar.text_input(
-    'Enter your OpenAI token:', placeholder='sk-...', type='password'
+    'Enter your OpenAI API key:', placeholder='sk-...', type='password'
 )
 
 # Type your question
 question = st.text_input(
-    'Type your question:', placeholder="How does the company's financials look like?"
+    'Type your question:', placeholder="How to increase my company's revenue?"
 )
 
 selected_tools = st.sidebar.multiselect('Plugins:', ALL_TOOLS)
@@ -87,6 +87,8 @@ def main():
                         return
 
         with st.spinner(text="Running GPTpal..."):
+            #os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+            os.environ["OPENAI_API_KEY"] = openai_token
             chat = ChatOpenAI(temperature=0)
             messages = [
               SystemMessage(content="You are a helpful assistant that has access to many tools!"),
