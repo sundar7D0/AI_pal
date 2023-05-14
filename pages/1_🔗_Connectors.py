@@ -122,8 +122,8 @@ def maine():
     from langchain.embeddings.openai import OpenAIEmbeddings
     index_name = "langchain-demo"
     # check if 'openai' index already exists (only create index if not)
-    if index not in pinecone.list_indexes():
-        pinecone.create_index(index, dimension=1536)
+    if index_name not in pinecone.list_indexes():
+        pinecone.create_index(index_name, dimension=1536)
     
     embeddings = OpenAIEmbeddings()
     # connect to index
