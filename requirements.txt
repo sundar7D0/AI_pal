@@ -2,6 +2,7 @@
 streamlit
 langchain
 openai
+tiktoken
 
 #vector-store
 pinecone-client
