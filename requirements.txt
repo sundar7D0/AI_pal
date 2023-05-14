@@ -1,0 +1,5 @@
+streamlit
+langchain
+google-auth-oauthlib
+google-api-python-client
+pinecone-client
