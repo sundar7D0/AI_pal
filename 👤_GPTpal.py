@@ -94,15 +94,6 @@ def main():
             ]
             response = chat(messages)
             
-            for resp in chat(messages):
-                res_box.markdown(f'{resp}')
-  
-                #for resp in response:
-            #    st.write(resp)
-
-        # Optionally show the chain of thought, if user expands the subsection
-        #with st.expander('See chain of thought'):
-        #    st.write(chain_of_thought, unsafe_allow_html=True)
         
 class MyCustomHandler(BaseCallbackHandler):
     def __init__(self) -> None:
@@ -111,9 +102,9 @@ class MyCustomHandler(BaseCallbackHandler):
     
     def on_llm_new_token(self, token: str, **kwargs) -> None:
         self.response.append(token)
-        result = "".join(self.response).strip()
-        result = result.replace("\n", "")       
-        res_box.markdown(f'*{result}*') 
+        result = "".join(self.response).strip()   
+        st.text_area(label ="",value=result, height =100)
+        #res_box.markdown(f'{result}') 
         #st.write(f"Custom handler, token: {token}")
 
 
