@@ -2,4 +2,4 @@
 base="dark"
 
 [server]
-port = 8503
+port = 80
