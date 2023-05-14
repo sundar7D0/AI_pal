@@ -124,7 +124,8 @@ def maine():
     from langchain.text_splitter import CharacterTextSplitter
     from langchain.vectorstores import Pinecone
     index_name = "langchain-demo"
-    
+    text_splitter = CharacterTextSplitter(chunk_size=10, chunk_overlap=0)
+    docs = text_splitter.split_documents(text_contents)
     docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
 
 upsert = st.button("Upsert")
