@@ -1,23 +1,26 @@
 import streamlit as st
-import time
-import numpy as np
+import os.path
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+
+# If modifying these scopes, delete the file token.json.
+SCOPES = [
+    "https://www.googleapis.com/auth/documents.readonly",
+    "https://www.googleapis.com/auth/drive.metadata.readonly",
+]
+
+
+# The ID of a sample document.
+DOCUMENT_ID = "1D9_izhimrk622JhQcNzVlgDfxz_b9is9KfcCDh_psFE"
 
 st.set_page_config(page_title="🔗Connectors", page_icon="🔗")
 
-st.markdown("# Connectors")
-st.sidebar.header("Plotting Demo")
-st.write(
-    """DifferentThis demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
-)
 
-
-
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+#display progress for upsering
+#progress_bar = st.sidebar.progress(0)
 
 tab1, tab2 = st.tabs(["📂 GDrive", "📝 Notion"])
 
