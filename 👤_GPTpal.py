@@ -2,7 +2,7 @@ import os
 import sys
 
 import streamlit as st
-res_box = st.empty()
+
 # get file dir and add it to sys.path
 cwd = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(cwd)
@@ -60,6 +60,7 @@ for tool in selected_tools:
 
 submit = st.button('Submit')
 
+res_box = st.empty()
 
 def main():
     if submit:
