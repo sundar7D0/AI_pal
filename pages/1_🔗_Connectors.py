@@ -120,12 +120,17 @@ def maine():
     embed_model = "text-embedding-ada-002"
 
     from langchain.embeddings.openai import OpenAIEmbeddings
+    index_name = "langchain-demo"
+    # check if 'openai' index already exists (only create index if not)
+    if index not in pinecone.list_indexes():
+        pinecone.create_index(index, dimension=1536)
+    
     embeddings = OpenAIEmbeddings()
     # connect to index
     from langchain.text_splitter import CharacterTextSplitter
     from langchain.text_splitter import RecursiveCharacterTextSplitter
     from langchain.vectorstores import Pinecone
-    index_name = "langchain-demo"
+
     #text_splitter = CharacterTextSplitter(chunk_size=10, chunk_overlap=0)
     text_splitter = RecursiveCharacterTextSplitter(
         # Set a really small chunk size, just to show.
