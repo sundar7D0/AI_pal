@@ -155,7 +155,7 @@ if upsert:
     if document_id:
         document_id = document_id.group(2)
     else:
-        raise st.error("Invalid Google Drive document link.")
+        st.error("Invalid Google Drive document link.")
         return
     with open("credentials.json", "w") as creds:
         creds.write(creds_str)
