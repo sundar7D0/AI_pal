@@ -13,8 +13,6 @@ SCOPES = [
 ]
 
 
-# The ID of a sample document.
-doc_url = tab1.text_input("Enter document URL", placeholder="https://docs.google.com/document/d/1KpdSKD8-Rn0bWPTu4UtK54ks0yv2j22pA5SrAD9av4s/edit")
 
 st.set_page_config(page_title="🔗Connectors", page_icon="🔗")
 
@@ -31,6 +29,10 @@ tab1.subheader("GDrive connector")
 creds_str = tab1.text_input(
     "Enter contents of your 'credentials.json'", placeholder='{"installed": {"client_id": "...'
 )
+
+# The ID of a sample document.
+doc_url = tab1.text_input("Enter document URL", placeholder="https://docs.google.com/document/d/1KpdSKD8-Rn0bWPTu4UtK54ks0yv2j22pA5SrAD9av4s/edit")
+
 
 def get_credentials():
     """Gets valid user credentials from storage.
