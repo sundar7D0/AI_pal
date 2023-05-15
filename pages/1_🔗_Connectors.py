@@ -147,7 +147,7 @@ def maine(document_id):
 
 upsert = st.button("Upsert")
 
-if upsert:
+def upserter():
     if not doc_url:
         st.error('Please enter the GDrive URL that you want to upsert!')
         return
@@ -162,6 +162,11 @@ if upsert:
     with open("token.json", "w") as tok:
         tok.write(creds_str)
     maine(document_id)
+    
+if upsert:
+    upserter()
+    
+
 # Streamlit widgets automatically run the script from top to bottom. Since
 # this button is not connected to any other logic, it just causes a plain
 # rerun.
