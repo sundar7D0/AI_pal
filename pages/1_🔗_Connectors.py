@@ -150,12 +150,13 @@ upsert = st.button("Upsert")
 if upsert:
     if not doc_url:
         st.error('Please enter the GDrive URL that you want to upsert!')
-            return
+        return
     document_id = re.search(r'document/d/([\w-]+)', doc_url)
     if document_id:
         document_id = document_id.group(2)
     else:
         raise st.error("Invalid Google Drive document link.")
+        return
     with open("credentials.json", "w") as creds:
         creds.write(creds_str)
     with open("token.json", "w") as tok:
