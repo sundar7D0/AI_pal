@@ -157,7 +157,7 @@ def upserter():
         return
     document_id = re.search(r'document/d/([\w-]+)', doc_url)
     if document_id:
-        document_id = document_id.group(2)
+        document_id = document_id.group(1)
     else:
         st.error("Invalid Google Drive document link.")
         return
