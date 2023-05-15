@@ -14,7 +14,7 @@ SCOPES = [
 
 
 # The ID of a sample document.
-DOCUMENT_ID = "1D9_izhimrk622JhQcNzVlgDfxz_b9is9KfcCDh_psFE"
+doc_url = tab1.text_input("Enter document URL", placeholder="https://docs.google.com/document/d/1KpdSKD8-Rn0bWPTu4UtK54ks0yv2j22pA5SrAD9av4s/edit")
 
 st.set_page_config(page_title="🔗Connectors", page_icon="🔗")
 
@@ -100,11 +100,11 @@ def read_structural_elements(elements):
     return text
 
 
-def maine():
+def maine(document_id):
     """Uses the Docs API to print out the text of a document."""
     credentials = get_credentials()
     docs_service = build(serviceName="docs", version="v1", credentials=credentials)
-    doc = docs_service.documents().get(documentId=DOCUMENT_ID).execute()
+    doc = docs_service.documents().get(documentId=document_id).execute()
     doc_content = doc.get("body").get("content")
     st.write("File contents: ")
     text_contents = read_structural_elements(doc_content)
@@ -134,24 +134,34 @@ def maine():
     #text_splitter = CharacterTextSplitter(chunk_size=10, chunk_overlap=0)
     text_splitter = RecursiveCharacterTextSplitter(
         # Set a really small chunk size, just to show.
-        chunk_size = 100,
-        chunk_overlap  = 20,
+        chunk_size = 500,
+        chunk_overlap  = 100,
         length_function = len,
     )
     texts = text_splitter.create_documents([text_contents])
     docs = text_splitter.split_documents(texts)
+    st.write("Splitted documents: ")
+    st.write(docs)
     docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
     st.write("Done upserting!")
 
 upsert = st.button("Upsert")
 
 if upsert:
+    if not doc_url:
+        st.error('Please enter the GDrive URL that you want to upsert!')
+            return
+    document_id = re.search(r'document/d/([\w-]+)', doc_url)
+    if document_id:
+        document_id = document_id.group(2)
+    else:
+        raise st.error("Invalid Google Drive document link.")
     with open("credentials.json", "w") as creds:
         creds.write(creds_str)
     with open("token.json", "w") as tok:
         tok.write(creds_str)
-    maine()
+    maine(document_id)
 # Streamlit widgets automatically run the script from top to bottom. Since
 # this button is not connected to any other logic, it just causes a plain
 # rerun.
-st.button("Re-run")
+#st.button("Re-run")
