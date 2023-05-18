@@ -91,12 +91,18 @@ def main():
                         return
 
         with st.spinner(text="Running GPTpal..."):
-            os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-            #os.environ["OPENAI_API_KEY"] = openai_token
+            #os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+            os.environ["OPENAI_API_KEY"] = openai_token
             chat = ChatOpenAI(streaming=True, callbacks=[MyCustomHandler()], temperature=0)
             
             from langchain.vectorstores import Pinecone
             from langchain.embeddings.openai import OpenAIEmbeddings
+            import pinecone
+            # initialize connection to pinecone (get API key at app.pinecone.io)
+            pinecone.init(
+                api_key="1a7ccf41-091a-4567-862a-02b2513a77cb", #"f7167eee-6383-4eec-857e-91c402f13f3b",
+                environment="us-east1-gcp"
+            )
             index_name = "langchain-demo"
             embeddings = OpenAIEmbeddings()
             docsearch = Pinecone.from_existing_index(index_name, embeddings)
