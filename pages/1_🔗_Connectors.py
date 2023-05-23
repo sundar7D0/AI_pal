@@ -58,7 +58,7 @@ def get_credentials():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES, redirect_uri="https://sundar7d0-gptpal--gptpal-kq1rdk.streamlit.app")
-            creds = flow.run_local_server(port=80)
+            creds = flow.run_local_server(port=5000)
         # Save the credentials for the next run
         with open("token.json", "w") as token:
             token.write(creds.to_json())
@@ -163,8 +163,8 @@ def upserter():
         return
     with open("credentials.json", "w") as creds:
         creds.write(creds_str)
-    with open("token.json", "w") as tok:
-        tok.write(creds_str)
+    #with open("token.json", "w") as tok:
+    #    tok.write(creds_str)
     maine(document_id)
     
 if upsert:
