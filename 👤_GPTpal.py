@@ -130,8 +130,8 @@ class MyCustomHandler(BaseCallbackHandler):
     def on_llm_new_token(self, token: str, **kwargs) -> None:
         self.response.append(token)
         result = "".join(self.response).strip()   
-        placeholder.code(result)
-        #placeholder.markdown(f"**:blue[{result}]**",unsafe_allow_html=True)
+        #placeholder.code(result)
+        placeholder.markdown(f"**:blue[{result}]**",unsafe_allow_html=True)
         #st.text_area(label ="",value=result, height =100)
         ##res_box.markdown(f'{result}') 
         #st.write(f"Custom handler, token: {token}")
